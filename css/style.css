@@ -10,7 +10,9 @@
   margin: 0;
   box-sizing: border-box;
 }
-
+ul{
+  list-style: none;
+}
 body {
   font-family: "Poppins", sans-serif;
   overflow: hidden;
@@ -39,15 +41,15 @@ h1,h2,h5,p{
   width: 100vw;
   height: 100vh;
   display: flex;
-  flex-flow: row nowrap;
+  flex-flow: column wrap;
   justify-content: center;
   padding: 0 2rem;
 }
 
 #marktable {
-  height: 70%;
-  overflow: scroll;
-  width: 85%;
+  height: 100%;
+  overflow-y: scroll;
+  width: 100%;
 }
 #marktable a{
   color: white;
@@ -66,8 +68,10 @@ h1,h2,h5,p{
 }
 .linkTableOuter{
   display: none;
+  height: 55%;
 }
 .login-content {
+  height: 100%;
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -77,11 +81,9 @@ h1,h2,h5,p{
   width: 95%;
   margin: auto auto 0;
 }
-
-
 .likeForm {
   width: 80%;
-  margin: auto auto 0;
+  margin: auto auto ;
   box-sizing: border-box;
   padding: 15px;
   bottom: 0;
@@ -129,7 +131,13 @@ h1,h2,h5,p{
   position: relative;
   height: 40px;
 }
-
+.errorDiv{
+  position: absolute;
+  top: 45px;
+  width: 100%;
+  text-align: center;
+  color: red;
+}
 .input-div > div > h5 {
   position: absolute;
   left: 10px;
@@ -163,14 +171,27 @@ h1,h2,h5,p{
 .input-div.focus:after {
   width: 50%;
 }
+.input-div.focusRed:before,
+.input-div.focusRed:after {
+  width: 50%;
+  background-color: red;
+}
 
 .input-div.focus > div > h5 {
   top: -5px;
   font-size: 15px;
 }
+.input-div.focusRed > div > h5 {
+  top: -5px;
+  font-size: 15px;
+  color: red;
+}
 
 .input-div.focus > .i > i {
   color: #38d39f;
+}
+.input-div.focusRed > .i > i {
+  color: red;
 }
 
 .input-div > div > input {
@@ -241,10 +262,16 @@ a:hover {
 
 @media (min-width: 300px) and (max-width: 991px) {
   .contain{
-    flex-flow: column nowrap;
+    flex-flow: row wrap;
   }
-  .login-content{
+
+  .login-content {
+    width: 100%;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
     order: 1;
+    height: 40%;
   }
   .img img{
     display: none;
@@ -264,15 +291,10 @@ a:hover {
   .navbar-collapse{
     background-color: rgba(47, 214, 154,.5);
   }
-  .login-content {
-    width: 100%;
-    display: flex;
-    flex-flow: column nowrap;
-    justify-content: center;
-  }
+ 
 
   .btn,.nav-link {
-    font-size: 2.5rem;
+    font-size: 2rem;
   }
 
 }

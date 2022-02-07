@@ -1,23 +1,23 @@
-
 let inputs = document.querySelectorAll(".input");
-function addcl() {
+ function addcl() {
   let parent = this.parentNode.parentNode;
   parent.classList.add("focus");
 }
-function remcl() {
+ function remcl() {
   let parent = this.parentNode.parentNode;
   if (this.value == "") {
-    parent.classList.remove("focus");
+    parent.classList.remove('focus');
   }
 }
 inputs.forEach((input) => {
-  input.addEventListener("focus", addcl);
+  input.addEventListener("focus",addcl );
   input.addEventListener("blur", remcl);
 });
+
 export let usersData;
 
 if (localStorage.getItem("users") == null) {
-  var dummyData = [{ name: "", email: "", pass: "" ,URLS:[]}];
+  var dummyData = [{ name: "", email: "", pass: "", URLS: [] }];
   localStorage.setItem("users", JSON.stringify(dummyData));
 } else {
   usersData = JSON.parse(localStorage.getItem("users"));
@@ -61,7 +61,8 @@ export function setSession(hour, email) {
   let x = {
     email: email,
     State: "Authenticated",
-    Expires: addHours(hour)  };
+    Expires: addHours(hour),
+  };
   localStorage.setItem("Authentication", JSON.stringify(x));
 }
 export function addHours(hour) {

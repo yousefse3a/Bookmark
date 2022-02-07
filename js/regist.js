@@ -2,6 +2,7 @@
 import * as help from "./helper.js";
 export class regist {
   constructor(usersData) {
+    this.inputs = document.querySelectorAll(".input");
     this.nameInput = document.querySelector("#name");
     this.emailInput = document.querySelector("#email");
     this.passInput = document.querySelector("#pass");
@@ -16,47 +17,62 @@ export class regist {
   }
 
   regist() {
-    help.clear(this.messageInput);
-    this.error = [];
+    this.inputs.forEach((input) => {
+      if (input.value == "") {
+        let parent = input.parentNode.parentNode;
+        parent.classList.add("focusRed");
+      }
+      input.addEventListener("keydown", () => {
+        let parent = input.parentNode.parentNode;
+        if ((this.value = !"")) {
+          parent.classList.remove("focusRed");
+          $(".errorDiv > .name").text("");
+          $(".errorDiv > .email").text("");
+          $(".errorDiv > .pass").text("");
+        }
+      });
+      input.addEventListener("blur", () => {
+        let parent = input.parentNode.parentNode;
+        if (this.value == "") {
+          parent.classList.add("focusRed");
+        }
+      });
+    });
+    this.error = { name: "", email: "", pass: "" };
     if (
       this.nameInput.value == "" ||
       this.emailInput.value == "" ||
       this.passInput.value == ""
     ) {
-      this.error.push("All Fields Requird");
+      // this.error.push("");
     }
     if (!this.nameVaild(this.nameInput)) {
-      this.error.push("must start with char");
+      this.error.name = "must start with char";
     }
     if (!this.emailVaild(this.emailInput)) {
-      this.error.push("invail");
+      this.error.email = "invail";
     }
     if (!this.passVaild(this.passInput)) {
-      this.error.push(
-        "Minimum eight characters, at least one letter, one number and one special character"
-      );
+      this.error.pass =
+        "Minimum eight char, at least one letter, one number and one special char";
     }
     if (help.emailfind(this.emailInput.value)) {
-      this.error.push("email already taken");
+      this.error.email = "email already taken";
     }
-    if (this.error.length != 0) {
-      let ss = "";
-      this.error.every((element) => {
-        if (element == "All Fields Requird") {
-          ss = element;
-          return false;
-        } else {
-          ss += "<li>" + element + "</li>";
-          return true;
-        }
-      });
-      this.messageInput.innerHTML = ss;
+    if (
+      this.error.name != "" ||
+      this.error.email != "" ||
+      this.error.pass != ""
+    ) {
+      $(".errorDiv > .name").text(this.error.name);
+      $(".errorDiv > .email").text(this.error.email);
+      $(".errorDiv > .pass").text(this.error.pass);
     } else {
       let name = this.nameInput.value;
       let email = this.emailInput.value;
       let pass = this.passInput.value;
-      let URLS =[];
-      let userData = { name: name, email: email, pass: pass ,URLS:URLS};
+      let URLS = [];
+      let userData = { name: name, email: email, pass: pass, URLS: URLS };
       this.usersData.push(userData);
       localStorage.setItem("users", JSON.stringify(this.usersData));
       help.setSession(24, email);
